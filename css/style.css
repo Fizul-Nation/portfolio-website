@@ -1,0 +1,316 @@
+
+        /* --- DESIGN TOKENS --- */
+        :root {
+            /* Hero (Light) Theme */
+            --bg-color: #e0e7ff;
+            --pattern-color: #c7d2fe;
+            --card-bg: #ffffff;
+            --text-main: #1e1b4b;
+            --text-sub: #4338ca;
+            --accent-primary: #facc15; /* Comic Yellow */
+            --accent-secondary: #f43f5e; /* Comic Red */
+            --accent-tertiary: #3b82f6; /* Comic Blue */
+            
+            --border-width: 3px;
+            --border-color: #000000;
+            
+            --hard-shadow: 6px 6px 0px #000000;
+            --hard-shadow-hover: 2px 2px 0px #000000;
+            
+            --font-display: 'Bangers', cursive;
+            --font-body: 'Chakra Petch', sans-serif;
+        }
+
+        [data-theme="dark"] {
+            /* Villain (Dark) Theme */
+            --bg-color: #0f172a;
+            --pattern-color: #1e293b;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-sub: #94a3b8;
+            --accent-primary: #a855f7; /* Neon Purple */
+            --accent-secondary: #06b6d4; /* Neon Cyan */
+            --accent-tertiary: #ef4444; /* Neon Red */
+            --border-color: #ffffff;
+            --hard-shadow: 6px 6px 0px #ffffff;
+            --hard-shadow-hover: 2px 2px 0px #ffffff;
+        }
+
+        /* --- GLOBAL RESET --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: radial-gradient(var(--pattern-color) 15%, transparent 16%), radial-gradient(var(--pattern-color) 15%, transparent 16%);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+            font-family: var(--font-body);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            transition: background-color 0.5s ease;
+            perspective: 1000px; /* Essential for 3D Tilt */
+        }
+
+        /* --- DECORATIVE BACKGROUND ELEMENTS --- */
+        .bg-element {
+            position: absolute;
+            font-family: var(--font-display);
+            color: var(--text-sub);
+            opacity: 0.1;
+            z-index: -1;
+            pointer-events: none;
+            user-select: none;
+        }
+        .bg-1 { top: 10%; left: 10%; font-size: 8rem; transform: rotate(-15deg); }
+        .bg-2 { bottom: 20%; right: 5%; font-size: 10rem; transform: rotate(20deg); }
+
+        /* --- 3D CARD CONTAINER --- */
+        .card-wrapper {
+            padding: 20px;
+            width: 100%;
+            max-width: 480px;
+        }
+
+        .comic-card {
+            background-color: var(--card-bg);
+            border: var(--border-width) solid var(--border-color);
+            box-shadow: var(--hard-shadow);
+            border-radius: 20px; /* Slight curve but mostly sharp */
+            padding: 40px 30px;
+            position: relative;
+            transform-style: preserve-3d; /* Allows children to float */
+            transition: transform 0.1s ease-out; /* Smooth JS tilt */
+            overflow: hidden;
+        }
+
+        /* The "Slash" decorative top */
+        .comic-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: repeating-linear-gradient(
+                45deg,
+                var(--accent-secondary),
+                var(--accent-secondary) 10px,
+                var(--accent-primary) 10px,
+                var(--accent-primary) 20px,
+                var(--accent-tertiary) 20px,
+                var(--accent-tertiary) 30px
+            );
+            z-index: 2;
+        }
+
+        /* --- THEME SWITCHER --- */
+        .theme-toggle {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: var(--border-width) solid var(--border-color);
+            color: var(--text-main);
+            padding: 8px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            box-shadow: 3px 3px 0px var(--border-color);
+            transition: transform 0.2s;
+            z-index: 10;
+        }
+        .theme-toggle:active {
+            transform: translate(3px, 3px);
+            box-shadow: 0px 0px 0px var(--border-color);
+        }
+
+        /* --- PROFILE SECTION --- */
+        .profile {
+            text-align: center;
+            margin-bottom: 30px;
+            transform: translateZ(30px); /* Floats above card */
+        }
+
+        .avatar-container {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 15px;
+            position: relative;
+        }
+
+        .avatar {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Hexagon Mask */
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            background-color: var(--accent-secondary);
+            border: var(--border-width) solid var(--border-color);
+        }
+
+        .status-badge {
+            position: absolute;
+            bottom: -10px;
+            right: -10px;
+            background: var(--accent-primary);
+            color: #000;
+            font-family: var(--font-display);
+            font-size: 0.9rem;
+            padding: 4px 10px;
+            border: 2px solid #000;
+            box-shadow: 3px 3px 0px #000;
+            transform: rotate(-10deg);
+            letter-spacing: 1px;
+        }
+
+        h1 {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            line-height: 1;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            text-shadow: 3px 3px 0px var(--accent-secondary);
+            color: var(--text-main);
+        }
+
+        .bio {
+            font-size: 1rem;
+            color: var(--text-sub);
+            font-weight: 600;
+            border-bottom: 2px dashed var(--border-color);
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
+        /* --- BUTTONS (THE "ACTION" PANELS) --- */
+        .links-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            transform: translateZ(20px); /* Parallax layer */
+        }
+
+        .comic-btn {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+            padding: 18px 25px;
+            background: var(--card-bg);
+            border: var(--border-width) solid var(--border-color);
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: var(--hard-shadow);
+            /* Skew effect for action feel */
+            transform: skew(-5deg); 
+        }
+
+        /* Un-skew content so text is readable */
+        .comic-btn > * {
+            transform: skew(5deg);
+        }
+
+        /* Hover Interaction */
+        .comic-btn:hover {
+            transform: skew(-5deg) translate(-2px, -2px);
+            box-shadow: var(--hard-shadow-hover);
+            background-color: var(--accent-primary);
+            color: #000;
+        }
+
+        .comic-btn:active {
+            transform: skew(-5deg) translate(2px, 2px);
+            box-shadow: 0px 0px 0px #000;
+        }
+
+        /* Specific Button Variants */
+        .btn-primary { background-color: var(--accent-primary); color: #000; }
+        .btn-secondary { background-color: var(--accent-tertiary); color: #fff; }
+        
+        .btn-icon-left {
+            margin-right: 15px;
+            font-size: 1.4rem;
+            background: rgba(255,255,255,0.2);
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid rgba(0,0,0,0.2);
+        }
+
+        .btn-icon-right {
+            font-size: 1.5rem;
+        }
+
+        /* --- SOCIAL ROW --- */
+        .socials {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+            transform: translateZ(40px); /* Highest layer */
+        }
+
+        .social-btn {
+            width: 50px;
+            height: 50px;
+            border: var(--border-width) solid var(--border-color);
+            background: var(--card-bg);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-main);
+            font-size: 1.5rem;
+            text-decoration: none;
+            box-shadow: 4px 4px 0px var(--border-color);
+            transition: transform 0.2s;
+        }
+
+        .social-btn:hover {
+            transform: translateY(-5px) rotate(10deg);
+            background: var(--accent-secondary);
+            color: #fff;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            margin-top: 30px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-sub);
+            transform: translateZ(10px);
+            font-weight: 700;
+        }
+
+        /* --- GLITCH ANIMATION FOR TITLE --- */
+        @keyframes glitch {
+            0% { transform: translate(0) }
+            20% { transform: translate(-2px, 2px) }
+            40% { transform: translate(-2px, -2px) }
+            60% { transform: translate(2px, 2px) }
+            80% { transform: translate(2px, -2px) }
+            100% { transform: translate(0) }
+        }
+
+        .glitch-hover:hover {
+            animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
+            color: var(--accent-secondary);
+        }
+
+        /* --- RESPONSIVE --- */
+        @media(max-width: 500px) {
+            .bg-element { display: none; }
+            h1 { font-size: 2.5rem; }
+            .comic-card { border-width: 2px; padding: 30px 15px; }
+        }
