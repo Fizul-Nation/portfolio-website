@@ -240,8 +240,12 @@
         .btn-secondary { background-color: var(--accent-tertiary); color: #fff; }
         
         .btn-icon-left {
+        width: 28px;
+        height: 28px;
+        object-fit: contain;
+
             margin-right: 15px;
-            font-size: 1.4rem;
+            
             background: rgba(255,255,255,0.2);
             padding: 5px;
             border-radius: 5px;
