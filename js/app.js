@@ -50,10 +50,10 @@
         // Adds a subtle comic burst effect on click
         document.querySelectorAll('.comic-btn').forEach(btn => {
             btn.addEventListener('mousedown', () => {
-                btn.style.transform = "skew(-5deg) scale(0.95)";
+                btn.style.transform = "scale(0.95)";
             });
             btn.addEventListener('mouseup', () => {
-                btn.style.transform = "skew(-5deg) scale(1)";
+                btn.style.transform = "scale(1)";
             });
         });
     
