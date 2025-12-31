@@ -1,27 +1,24 @@
     
-        // --- 3D TILT EFFECT LOGIC ---
-        // This gives the "Premium" feel by making the card react to mouse movement
-        const card = document.getElementById('comicCard');
-        const container = document.getElementById('cardWrapper');
+        // --- 3D TILT EFFECT LOGIC (DESKTOP ONLY) ---
+const card = document.getElementById('comicCard');
+const container = document.getElementById('cardWrapper');
 
-        container.addEventListener('mousemove', (e) => {
-            const rect = container.getBoundingClientRect();
-            // Calculate mouse position relative to center of card
-            const x = e.clientX - rect.left - rect.width / 2;
-            const y = e.clientY - rect.top - rect.height / 2;
+if (!('ontouchstart' in window)) {
+    container.addEventListener('mousemove', (e) => {
+        const rect = container.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
 
-            // Rotate amount (divide to reduce intensity)
-            const rotateX = y / -10; 
-            const rotateY = x / 10;
+        card.style.transform =
+          `perspective(1000px) rotateX(${y / -10}deg) rotateY(${x / 10}deg)`;
+    });
 
-            // Apply transform
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-        });
+    container.addEventListener('mouseleave', () => {
+        card.style.transform =
+          `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
+    });
+}
 
-        // Reset when mouse leaves
-        container.addEventListener('mouseleave', () => {
-            card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
-        });
 
         // --- THEME SWITCHER (Hero / Villain) ---
         const themeBtn = document.getElementById('themeBtn');
@@ -46,14 +43,5 @@
             }
         });
 
-        // --- BUTTON RIPPLE EFFECT (Pure CSS/JS hybrid) ---
-        // Adds a subtle comic burst effect on click
-        document.querySelectorAll('.comic-btn').forEach(btn => {
-            btn.addEventListener('mousedown', () => {
-                btn.style.transform = "scale(0.95)";
-            });
-            btn.addEventListener('mouseup', () => {
-                btn.style.transform = "scale(1)";
-            });
-        });
+        
     

@@ -111,6 +111,14 @@
             z-index: 2;
         }
 
+        .comic-card {
+    will-change: transform;
+}
+
+.comic-btn {
+    transform-style: flat;
+}
+
         /* --- THEME SWITCHER --- */
         .theme-toggle {
             position: absolute;
