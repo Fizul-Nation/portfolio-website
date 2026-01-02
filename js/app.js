@@ -1,5 +1,4 @@
-    
-        // --- 3D TILT EFFECT LOGIC (DESKTOP ONLY) ---
+// --- 3D TILT EFFECT LOGIC (DESKTOP ONLY) ---
 const card = document.getElementById('comicCard');
 const container = document.getElementById('cardWrapper');
 
@@ -20,28 +19,25 @@ if (!('ontouchstart' in window)) {
 }
 
 
-        // --- THEME SWITCHER (Hero / Villain) ---
-        const themeBtn = document.getElementById('themeBtn');
-        const icon = themeBtn.querySelector('i');
-        const body = document.body;
+// --- THEME SWITCHER (Hero / Villain) ---
+const themeBtn = document.getElementById('themeBtn');
+const icon = themeBtn.querySelector('i');
+const body = document.body;
 
-        themeBtn.addEventListener('click', () => {
-            const currentTheme = body.getAttribute('data-theme');
-            
-            if (currentTheme === 'dark') {
-                // Switch to Hero (Light)
-                body.setAttribute('data-theme', 'light');
-                icon.className = 'ri-moon-clear-line';
-                document.querySelector('.status-badge').innerText = "PRO";
-                document.querySelector('.status-badge').style.backgroundColor = "var(--accent-primary)";
-            } else {
-                // Switch to Villain (Dark)
-                body.setAttribute('data-theme', 'dark');
-                icon.className = 'ri-sun-line';
-                document.querySelector('.status-badge').innerText = "LEGEND";
-                document.querySelector('.status-badge').style.backgroundColor = "var(--accent-secondary)";
-            }
-        });
+themeBtn.addEventListener('click', () => {
+    const currentTheme = body.getAttribute('data-theme');
 
-        
-    
+    if (currentTheme === 'dark') {
+        // Switch to Hero (Light)
+        body.setAttribute('data-theme', 'light');
+        icon.className = 'ri-moon-clear-line';
+        document.querySelector('.status-badge').innerText = "PRO";
+        document.querySelector('.status-badge').style.backgroundColor = "var(--accent-primary)";
+    } else {
+        // Switch to Villain (Dark)
+        body.setAttribute('data-theme', 'dark');
+        icon.className = 'ri-sun-line';
+        document.querySelector('.status-badge').innerText = "LEGEND";
+        document.querySelector('.status-badge').style.backgroundColor = "var(--accent-secondary)";
+    }
+});
